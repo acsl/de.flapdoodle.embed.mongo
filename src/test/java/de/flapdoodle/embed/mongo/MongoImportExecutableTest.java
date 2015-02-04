@@ -54,7 +54,12 @@ public class MongoImportExecutableTest  extends TestCase {
         MongodProcess mongod = mongodExe.start();
 
         String jsonFile=Thread.currentThread().getContextClassLoader().getResource("sample.json").toString();
-        jsonFile=jsonFile.replaceFirst("file:","");
+        
+        if (null != System.getProperty("os.name") && System.getProperty("os.name").contains("indows") ) {
+        	jsonFile=jsonFile.replaceFirst("file:/","");
+		} else {
+			jsonFile=jsonFile.replaceFirst("file:","");
+		}        
 
         MongoImportExecutable mongoImportExecutable=mongoImportExecutable(12346,"importDatabase","importCollection",jsonFile,true,true,true);
         MongoImportProcess mongoImportProcess=null;
