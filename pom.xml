@@ -12,7 +12,7 @@
 	<artifactId>de.flapdoodle.embed.mongo</artifactId>
 	<name>Flapdoodle Embedded MongoDB</name>
 	<version>1.46.5-SNAPSHOT</version>
-    <packaging>bundle</packaging>
+	<packaging>bundle</packaging>
 
 	<description>A embedded mongodb ...</description>
 	<url>http://github.com/flapdoodle-oss/embedmongo.flapdoodle.de</url>
@@ -25,6 +25,18 @@
 		</license>
 	</licenses>
 
+	<!-- deploy to our nexus -->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<url>${releases.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<uniqueVersion>false</uniqueVersion>
+			<url>${snapshots.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<scm>
 		<connection>scm:git:git@github.com:flapdoodle-oss/embedmongo.flapdoodle.de.git</connection>
@@ -93,7 +105,7 @@
 					<!-- <basedir>${basedir}</basedir> -->
 					<header>${basedir}/src/etc/header.txt</header>
 					<validHeaders>
-						<validHeader>${basedir}/src/etc/header-manual-can-yaman.txt</validHeader> 
+						<validHeader>${basedir}/src/etc/header-manual-can-yaman.txt</validHeader>
 					</validHeaders>
 					<quiet>false</quiet>
 					<failIfMissing>true</failIfMissing>
@@ -104,10 +116,10 @@
 						<include>**/test/**</include>
 					</includes>
 					<excludes>
-						<exclude>src/etc/**</exclude> 
-						<exclude>target/**</exclude> 
-						<exclude>.clover/**</exclude> 
-					</excludes> 
+						<exclude>src/etc/**</exclude>
+						<exclude>target/**</exclude>
+						<exclude>.clover/**</exclude>
+					</excludes>
 					<useDefaultExcludes>true</useDefaultExcludes>
 					<!-- <mapping> <jwc>XML_STYLE</jwc> <application>XML_STYLE</application> 
 						<myFileExtension>JAVADOC_STYLE</myFileExtension> </mapping> <useDefaultMapping>true</useDefaultMapping> -->
@@ -171,7 +183,7 @@
 				</executions>
 			</plugin>
 
-           	<plugin>
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<version>2.3.7</version>
@@ -222,7 +234,7 @@
 				</configuration>
 			</plugin>
 -->
-		
+
 		</plugins>
 	</build>
 
@@ -287,7 +299,7 @@
 			org.apache.commons.io
 		</osgi.import>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
