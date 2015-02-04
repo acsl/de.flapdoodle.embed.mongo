@@ -29,25 +29,31 @@ import de.flapdoodle.embed.process.runtime.Network;
 public class Net {
 
 	private final String bindIp;
+	private final String host;
 	private final int port;
 	private final boolean ipv6;
 
 	public Net() throws UnknownHostException, IOException {
-		this(null, Network.getFreeServerPort(), Network.localhostIsIPv6());
+		this(null, null, Network.getFreeServerPort(), Network.localhostIsIPv6());
 	}
 
 	public Net(int port, boolean ipv6) {
-		this(null, port, ipv6);
+		this(null, null, port, ipv6);
 	}
 
-	public Net(String bindIp, int port, boolean ipv6) {
+	public Net(String bindIp, String host, int port, boolean ipv6) {
 		this.bindIp = bindIp;
+		this.host = host;
 		this.port = port;
 		this.ipv6 = ipv6;
 	}
 
 	public String getBindIp() {
 		return bindIp;
+	}
+
+	public String getHost() {
+		return host;
 	}
 
 	public int getPort() {
@@ -61,6 +67,9 @@ public class Net {
 	public InetAddress getServerAddress() throws UnknownHostException {
 		if (bindIp != null) {
 			return InetAddress.getByName(bindIp);
+		}
+		else if (host != null) {
+			return InetAddress.getByName(host);
 		}
 		return Network.getLocalHost();
 	}

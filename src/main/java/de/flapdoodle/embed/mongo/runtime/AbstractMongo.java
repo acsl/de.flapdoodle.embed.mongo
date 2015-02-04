@@ -44,6 +44,10 @@ public class AbstractMongo {
 			ret.add("--bind_ip");
 			ret.add(net.getBindIp());
 		}
+		if (net.getHost() !=null) {
+			ret.add("--host");
+			ret.add(net.getHost());
+		}
 	}
 
 }
