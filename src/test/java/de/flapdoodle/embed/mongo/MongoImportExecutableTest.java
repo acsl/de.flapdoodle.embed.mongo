@@ -72,7 +72,7 @@ public class MongoImportExecutableTest  extends TestCase {
             dataImported=false;
         }finally {
            Assert.assertTrue("mongoDB import data in json format", dataImported);
-           mongoImportProcess.stop();
+           //mongoImportProcess.stop();
         }
 
         mongod.stop();
