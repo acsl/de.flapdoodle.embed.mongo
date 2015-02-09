@@ -49,6 +49,10 @@ public class MongoImportStarter extends Starter<IMongoImportConfig,MongoImportEx
     public static MongoImportStarter getDefaultInstance() {
         return getInstance(new RuntimeConfigBuilder().defaults(Command.MongoImport).build());
     }
+    
+    public static MongoImportStarter getDefaultInstance(boolean daemonProcess) {
+        return getInstance(new RuntimeConfigBuilder().defaults(Command.MongoImport, daemonProcess).build());
+    }
 
     @Override
     protected MongoImportExecutable newExecutable(IMongoImportConfig mongoImportConfig, Distribution distribution, IRuntimeConfig runtime, IExtractedFileSet files) {

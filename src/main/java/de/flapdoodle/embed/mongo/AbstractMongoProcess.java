@@ -60,19 +60,22 @@ public abstract class AbstractMongoProcess<T extends IMongoConfig, E extends Exe
 		Processors.connect(process.getReader(), logWatch);
 		Processors.connect(process.getError(), StreamToLineProcessor.wrap(outputConfig.getError()));
 		logWatch.waitForResult(getConfig().timeout().getStartupTimeout());
-		if (logWatch.isInitWithSuccess()) {
-			setProcessId(Mongod.getMongodProcessId(logWatch.getOutput(), -1));
-		} else {
-			String failureFound = logWatch.getFailureFound();
-			if (failureFound==null) {
-				failureFound="\n" +
-						"----------------------\n" +
-						"Hmm.. no failure message.. \n" +
-						"...the cause must be somewhere in the process output\n" +
-						"----------------------\n" +
-						""+logWatch.getOutput();
+		
+		if (runtimeConfig.isDaemonProcess()) {
+			if (logWatch.isInitWithSuccess()) {
+				setProcessId(Mongod.getMongodProcessId(logWatch.getOutput(), -1));
+			} else {
+				String failureFound = logWatch.getFailureFound();
+				if (failureFound == null) {
+					failureFound = "\n"
+							+ "----------------------\n"
+							+ "Hmm.. no failure message.. \n"
+							+ "...the cause must be somewhere in the process output\n"
+							+ "----------------------\n" + ""
+							+ logWatch.getOutput();
+				}
+				throw new IOException("Could not start process: " + failureFound);
 			}
-			throw new IOException("Could not start process: "+failureFound);
 		}
 	}
 

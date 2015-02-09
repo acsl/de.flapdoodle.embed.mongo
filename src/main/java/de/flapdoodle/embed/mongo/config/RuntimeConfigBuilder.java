@@ -50,4 +50,12 @@ public class RuntimeConfigBuilder extends de.flapdoodle.embed.process.config.Run
 		artifactStore().setDefault(new ArtifactStoreBuilder().defaults(command).build());
 		return this;
 	}
+	
+	public RuntimeConfigBuilder defaults(Command command, boolean daemonProcess) {
+		processOutput().setDefault(MongodProcessOutputConfig.getDefaultInstance(command));
+		commandLinePostProcessor().setDefault(new ICommandLinePostProcessor.Noop());
+		artifactStore().setDefault(new ArtifactStoreBuilder().defaults(command).build());
+		daemonProcess(daemonProcess);
+		return this;
+	}
 }
